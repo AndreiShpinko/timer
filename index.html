@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="wrapper">
+          <h1 class="title">Timer</h1>
+          <div class="timer">
+            <input type="text" class="days" disabled maxlength="2" value="00" />
+            <input
+              type="text"
+              class="hours"
+              disabled
+              maxlength="2"
+              value="00"
+            />
+            <input
+              type="text"
+              class="minutes"
+              disabled
+              maxlength="2"
+              value="00"
+            />
+            <input
+              type="text"
+              class="seconds"
+              disabled
+              maxlength="2"
+              value="00"
+            />
+          </div>
+          <div class="btns">
+            <div class="btns-top">
+              <button class="btn" data-info="reset" disabled>Reset</button>
+              <button
+                class="btn"
+                data-info="startStop"
+                data-status="start"
+                disabled
+              >
+                Start
+              </button>
+              <button class="btn" data-info="new" data-status="new">New</button>
+            </div>
+            <div class="couthdown"><span>Are you ready?</span></div>
+            <div class="btns-bottom">
+              <button
+                class="btn btn-sound"
+                data-info="sound"
+                data-status="start"
+              >
+                <img src="img/bird.png" alt="" />
+              </button>
+              <button class="btn" data-info="listen" data-status="stop">Listen</button>
+            </div>
+          </div>
+        </div>
+        <div class="popup">Время вышло</div>
+        <div class="popup-buffer"></div>
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>
