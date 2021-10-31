@@ -22,9 +22,7 @@ let inputs = document.querySelectorAll(".timer input");
 let counter;
 let couthdown;
 
-let audio = new Audio(
-  "../data/Mariah Carey - All I Want for Christmas Is You.mp3"
-);
+let audio = new Audio("data/Mariah Carey - All I Want for Christmas Is You.mp3");
 soundBtn.onclick = () => {
   if (soundBtn.dataset.status == "stop") {
     soundBtn.dataset.status = "start";
@@ -71,10 +69,14 @@ newBtn.onclick = () => {
         el.value = "00";
       }
     });
-    days = +daysEl.value;
-    hours = +hoursEl.value;
     resetBtn.disabled = false;
     startStopBtn.disabled = false;
+
+    inputs.forEach((el) => {
+        el.disabled = true;
+    });
+    days = +daysEl.value;
+    hours = +hoursEl.value;
     minutes = +minutesEl.value;
     seconds = +secondsEl.value;
     checkEmptyValues();
@@ -102,7 +104,7 @@ popupBufferEl.onclick = () => {
 listenBtn.onclick = () => {
   if (listenBtn.dataset.status == "stop") {
     listenBtn.dataset.status = "start";
-    let couthdownNum = 6;
+    let couthdownNum = 11;
     couthdownSpanEl.innerHTML = "Are you ready?";
     couthdownEl.style.opacity = 1;
     couthdownEl.style.visibility = "visible";
