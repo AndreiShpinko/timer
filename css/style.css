@@ -112,6 +112,7 @@ main {
   margin: 0 5px;
   -webkit-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
           box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  -webkit-appearance: none;
 }
 
 .wrapper {
@@ -347,7 +348,8 @@ main {
     width: 65px;
     font-size: 30px;
     padding: 5px;
-    margin: 0;
+    margin: 0 2px;
+    border-radius: 13px;
   }
   .btn {
     font-size: 14px;

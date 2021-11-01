@@ -24,6 +24,7 @@ let counter, couthdown;
 let audio = new Audio(
   "data/Mariah Carey - All I Want for Christmas Is You.mp3"
 );
+audio.preload = 'auto';
 
 resetBtn.onclick = () => {
   [days, hours, minutes, seconds] = [0, 0, 0, 0];
@@ -96,7 +97,6 @@ listenBtn.addEventListener("click", () => {
     couthdownSpanEl.innerHTML = "Are you ready?";
     couthdownEl.style.opacity = 1;
     couthdownEl.style.visibility = "visible";
-    audio.play();
     couthdown = setInterval(
       () => {
         if (couthdownSpanEl.innerHTML == 0) stopCouthdown();
