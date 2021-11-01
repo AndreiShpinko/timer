@@ -64,8 +64,8 @@ textarea {
 
 main {
   height: 100%;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(#8300ff), color-stop(#7c00fb), color-stop(#7400f7), color-stop(#6d00f3), color-stop(#6500ef), color-stop(#9700da), color-stop(#b500c6), color-stop(#c900b5), color-stop(#ec0091), color-stop(#ff0069), color-stop(#ff003f), to(#ff2c00));
-  background-image: linear-gradient(to right bottom, #8300ff, #7c00fb, #7400f7, #6d00f3, #6500ef, #9700da, #b500c6, #c900b5, #ec0091, #ff0069, #ff003f, #ff2c00);
+  background: -webkit-gradient(linear, left top, right bottom, from(#8300ff), color-stop(#7c00fb), color-stop(#7400f7), color-stop(#6d00f3), color-stop(#6500ef), color-stop(#9700da), color-stop(#b500c6), color-stop(#c900b5), color-stop(#ec0091), color-stop(#ff0069), color-stop(#ff003f), to(#ff2c00));
+  background: linear-gradient(to right bottom, #8300ff, #7c00fb, #7400f7, #6d00f3, #6500ef, #9700da, #b500c6, #c900b5, #ec0091, #ff0069, #ff003f, #ff2c00);
   background-size: 200% 200%;
   -webkit-animation: movingGradient 25s linear infinite alternate;
           animation: movingGradient 25s linear infinite alternate;
@@ -254,6 +254,7 @@ main {
   z-index: 100;
   text-transform: uppercase;
   font-size: 32px;
+  white-space: pre;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   opacity: 0;
@@ -334,6 +335,9 @@ main {
 @media screen and (max-width: 576px) {
   .container {
     max-width: none;
+  }
+  .popup {
+    font-size: 22px;
   }
 }
 

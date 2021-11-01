@@ -19,21 +19,26 @@ let popupBufferEl = document.querySelector(".popup-buffer");
 
 let inputs = document.querySelectorAll(".timer input");
 
-let counter;
-let couthdown;
+let counter, couthdown;
 
-let audio = new Audio("data/Mariah Carey - All I Want for Christmas Is You.mp3");
-soundBtn.onclick = () => {
-  if (soundBtn.dataset.status == "stop") {
-    soundBtn.dataset.status = "start";
-    listenBtn.disabled = false;
-} else if (soundBtn.dataset.status == "start") {
-    soundBtn.dataset.status = "stop";
-    listenBtn.disabled = true;
-  }
+let audio = new Audio(
+  "data/Mariah Carey - All I Want for Christmas Is You.mp3"
+);
+
+resetBtn.onclick = () => {
+  [days, hours, minutes, seconds] = [0, 0, 0, 0];
+  inputs.forEach((el) => {
+    el.value = "00";
+  });
+  startStopBtn.dataset.status = "start";
+  startStopBtn.innerHTML = "Start";
+  stopCouthdown();
+  stopCount();
+  checkEmptyValues();
 };
 
 startStopBtn.onclick = () => {
+  stopCouthdown();
   if (startStopBtn.dataset.status == "start") {
     startStopBtn.dataset.status = "stop";
     startStopBtn.innerHTML = "Stop";
@@ -41,19 +46,22 @@ startStopBtn.onclick = () => {
   } else if (startStopBtn.dataset.status == "stop") {
     startStopBtn.dataset.status = "start";
     startStopBtn.innerHTML = "Start";
-    days = +daysEl.value;
-    hours = +hoursEl.value;
-    minutes = +minutesEl.value;
-    seconds = +secondsEl.value;
+    [days, hours, minutes, seconds] = [
+      +daysEl.value,
+      +hoursEl.value,
+      +minutesEl.value,
+      +secondsEl.value,
+    ];
     stopCount();
   }
 };
 
 newBtn.onclick = () => {
+  stopCouthdown();
   if (newBtn.dataset.status == "new") {
     newBtn.dataset.status = "done";
     newBtn.innerHTML = "Done";
-    document.querySelectorAll(".timer input").forEach((el) => {
+    inputs.forEach((el) => {
       el.disabled = false;
       el.value = "";
     });
@@ -65,76 +73,65 @@ newBtn.onclick = () => {
     newBtn.innerHTML = "New";
 
     inputs.forEach((el) => {
-      if (!el.value) {
-        el.value = "00";
-      }
+      el.disabled = true;
+      if (!el.value) el.value = "00";
     });
     resetBtn.disabled = false;
     startStopBtn.disabled = false;
-
-    inputs.forEach((el) => {
-        el.disabled = true;
-    });
-    days = +daysEl.value;
-    hours = +hoursEl.value;
-    minutes = +minutesEl.value;
-    seconds = +secondsEl.value;
+    [days, hours, minutes, seconds] = [
+      +daysEl.value,
+      +hoursEl.value,
+      +minutesEl.value,
+      +secondsEl.value,
+    ];
     checkEmptyValues();
   }
 };
 
-resetBtn.onclick = () => {
-  [days, hours, minutes, seconds] = [0, 0, 0, 0];
-  inputs.forEach((el) => {
-    el.value = "00";
-  });
-  startStopBtn.dataset.status = "start";
-  startStopBtn.innerHTML = "Start";
-  stopCount();
-  checkEmptyValues();
-};
-
-popupBufferEl.onclick = () => {
-  popupBufferEl.classList.remove("active");
-  popupEl.classList.remove("active");
-  audio.pause();
-  audio.currentTime = 0.0;
-};
-
-listenBtn.onclick = () => {
+listenBtn.addEventListener("click", () => {
   if (listenBtn.dataset.status == "stop") {
     listenBtn.dataset.status = "start";
-    let couthdownNum = 11;
+    let couthdownNumStart = 11;
+    let couthdownNum = couthdownNumStart;
     couthdownSpanEl.innerHTML = "Are you ready?";
     couthdownEl.style.opacity = 1;
     couthdownEl.style.visibility = "visible";
     couthdown = setInterval(
       () => {
-        audio.play();
-        if (+couthdownSpanEl.innerHTML == 0) {
-          clearInterval(couthdown);
-          couthdown = "";
-          couthdownEl.style.opacity = 0;
-          couthdownEl.style.visibility = "hidden";
-          audio.pause();
-          audio.currentTime = 0.0;
-          listenBtn.dataset.status = "stop";
-        } else {
+        if (couthdownSpanEl.innerHTML == 0) stopCouthdown();
+        else {
           couthdownNum--;
           couthdownSpanEl.innerHTML = couthdownNum;
         }
+        if (couthdownSpanEl.innerHTML == couthdownNumStart - 1) audio.play();
       },
       1000,
       1000
     );
   } else if (listenBtn.dataset.status == "start") {
     listenBtn.dataset.status = "stop";
-    couthdown = clearInterval(couthdown);
-    couthdownEl.style.opacity = 0;
-    couthdownEl.style.visibility = "hidden";
-    audio.pause();
-    audio.currentTime = 0.0;
+    stopCouthdown();
   }
+});
+
+soundBtn.onclick = () => {
+  if (soundBtn.dataset.status == "stop") {
+    soundBtn.dataset.status = "start";
+    listenBtn.disabled = false;
+  } else if (soundBtn.dataset.status == "start") {
+    soundBtn.dataset.status = "stop";
+    listenBtn.disabled = true;
+    stopCouthdown();
+  }
+};
+
+popupBufferEl.onclick = () => {
+  popupBufferEl.classList.remove("active");
+  popupEl.classList.remove("active");
+  startStopBtn.dataset.status = "start";
+  startStopBtn.innerHTML = "Start";
+  audio.pause();
+  audio.currentTime = 0.0;
 };
 
 for (let i = 0; i < inputs.length; i++) {
@@ -196,4 +193,14 @@ function timeOver() {
   }
   popupBufferEl.classList.add("active");
   popupEl.classList.add("active");
+}
+
+function stopCouthdown() {
+  clearInterval(couthdown);
+  couthdown = 0;
+  couthdownEl.style.opacity = 0;
+  couthdownEl.style.visibility = "hidden";
+  audio.pause();
+  audio.currentTime = 0.0;
+  listenBtn.dataset.status = "stop";
 }
