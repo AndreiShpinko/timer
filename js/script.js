@@ -96,6 +96,7 @@ listenBtn.addEventListener("click", () => {
     couthdownSpanEl.innerHTML = "Are you ready?";
     couthdownEl.style.opacity = 1;
     couthdownEl.style.visibility = "visible";
+    audio.play();
     couthdown = setInterval(
       () => {
         if (couthdownSpanEl.innerHTML == 0) stopCouthdown();
