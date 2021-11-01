@@ -24,7 +24,7 @@ let counter, couthdown;
 let audio = new Audio(
   "data/Mariah Carey - All I Want for Christmas Is You.mp3"
 );
-audio.preload = 'auto';
+// audio.preload = 'auto';
 
 resetBtn.onclick = () => {
   [days, hours, minutes, seconds] = [0, 0, 0, 0];
@@ -129,8 +129,6 @@ soundBtn.onclick = () => {
 popupBufferEl.onclick = () => {
   popupBufferEl.classList.remove("active");
   popupEl.classList.remove("active");
-  startStopBtn.dataset.status = "start";
-  startStopBtn.innerHTML = "Start";
   audio.pause();
   audio.currentTime = 0.0;
 };
@@ -173,7 +171,11 @@ function startCount() {
       days--;
     } else {
       timeOver();
-      clearInterval(counter);
+      stopCount();
+      resetBtn.disabled = true;
+      startStopBtn.disabled = true;
+      startStopBtn.dataset.status = "start";
+      startStopBtn.innerHTML = "Start";
     }
     document.querySelector(".days").value = days < 10 ? `0${days}` : days;
     document.querySelector(".hours").value = hours < 10 ? `0${hours}` : hours;
